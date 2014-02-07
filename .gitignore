@@ -1,3 +1,9 @@
+# npm
+node_modules/
+
+#webstorm
+.idea/
+
 #################
 ## Eclipse
 #################

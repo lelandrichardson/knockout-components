@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ko-components</title>
+</head>
+<body>
+
+    <abc data-context="widget" data-bind="css: { 'pull-right': isRight }">
+        <div data-bind="text: label"></div>
+    </abc>
+
+
+
+    <template id="ko-tag-abc">
+        <span data-bind="text: label2"></span>
+        <content></content>
+        More Content
+    </template>
+
+
+<!--    Things to try out...     -->
+    
+    
+    <tp-map></tp-map>
+    
+    <tp-see-more-panel></tp-see-more-panel>
+    
+    <tp-autocomplete></tp-autocomplete>
+    
+    <tp-markdown-editor></tp-markdown-editor>
+    
+    <tp-modal></modal>
+    
+    <tp-spinner-button></tp-spinner-button>
+    
+    <tp-grid></tp-grid>
+    
+    <tp-frame-shield></tp-frame-shield>
+    
+    <tp-accordian></tp-accordian>
+    
+    <tp-tabs></tp-tabs>
+    
+    <click-to-edit></click-to-edit>
+
+    <tp-comments></tp-comments>
+
+    <script src="lib/jquery.min.js"></script>
+    <script src="lib/knockout.min.js"></script>
+    <script src="ko-components.js"></script>
+</body>
+</html>

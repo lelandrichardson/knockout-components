@@ -1,5 +1,5 @@
 /* global $: false */
-/* global ko: false */
+
 
 (function () {
     "use strict";
@@ -30,7 +30,7 @@
                 .replaceWith($wrapper.html());
     
         }
-    }
+    };
     
     
     ko.bindingProvider.instance.preprocessNode = function (node) {

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>knockout-components test suite</title>
+    <link rel="stylesheet" href="../lib/jasmine.css" type="text/css" />
+
+    <!-- Lib Files -->
+    <script src="../lib/knockout.min.js"></script>
+
+    <!-- Source Files -->
+    <script src="../src/initialize.js"></script>
+    <script src="../src/preProcessNode.js"></script>
+
+
+    <!-- Jasmine Files -->
+    <script src="../lib/jasmine.js"></script>
+    <script src="../lib/jasmine-html.js"></script>
+    <!--<script src="../lib/blanket.js" data-cover-adapter="../lib/jasmine-blanket.js"></script>-->
+
+
+    <!-- Test Files -->
+    <script src="preProcessNode.spec.js"></script>
+
+
+
+    <script>
+        (function () {
+            var jasmineEnv = jasmine.getEnv();
+            jasmineEnv.updateInterval = 1000;
+
+            var htmlReporter = new jasmine.HtmlReporter();
+
+            jasmineEnv.addReporter(htmlReporter);
+
+            jasmineEnv.specFilter = function (spec) {
+                return htmlReporter.specFilter(spec);
+            };
+
+            var currentWindowOnload = window.onload;
+
+            window.onload = function () {
+                if (currentWindowOnload) {
+                    currentWindowOnload();
+                }
+                execJasmine();
+            };
+
+            function execJasmine() {
+                jasmineEnv.execute();
+            }
+
+        })();
+    </script>
+</head>
+<body>
+
+</body>
+</html>

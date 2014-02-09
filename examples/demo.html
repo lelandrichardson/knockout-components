@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Knockout Components: Examples</title>
+    <link href="../lib/bootstrap.min.css" rel="stylesheet"/>
+</head>
+<body>
+
+    <h2>Random Gif</h2>
+
+    <div id="random-gif">
+        <random-gif></random-gif>
+    </div>
+
+
+    <h2>Placekitten</h2>
+
+    <div id="placekitten">
+        <placekitten></placekitten>
+        <placekitten data-width="width"></placekitten>
+        <placekitten data-width="width" data-height="height"></placekitten>
+    </div>
+
+
+    <h2>Click-to-edit</h2>
+
+    <div id="click-to-edit">
+        <click-to-edit data-value="text"></click-to-edit>
+    </div>
+
+
+    <h2>See More</h2>
+
+    <div id="see-more">
+        <see-more data-title="title" data-content="content">
+            <title></title>
+        </see-more>
+    </div>
+
+
+
+    <h2>Tab Control</h2>
+
+    <div id="tab-pane">
+        <tab-pane data-title="title" data-content="content">
+
+            <tab data-tab="Tab One">
+                <div>Here is some content for tab one</div>
+            </tab>
+
+            <tab data-tab="Tab Two">
+                <div>Here is some content for tab two</div>
+            </tab>
+
+        </tab-pane>
+    </div>
+
+
+
+
+
+
+    <!-- dependent libs -->
+    <script type="text/javascript" src="../lib/jquery.min.js" ></script>
+    <!--<script type="text/javascript" src="../lib/knockout.debug.js" ></script>-->
+    <script type="text/javascript" src="../lib/knockout.min.js" ></script>
+
+    <!-- ko-components -->
+    <script type="text/javascript" src="../build/ko-components.js"></script>
+
+    <!-- Examples -->
+    <script type="text/javascript" src="random-gif.js" ></script>
+    <script type="text/javascript" src="placekitten.js" ></script>
+    <script type="text/javascript" src="click-to-edit.js" ></script>
+    <script type="text/javascript" src="see-more.js" ></script>
+
+
+    <script>
+        (function(){
+            var $$ = function(id){return document.getElementById(id);};
+
+
+            // <random-gif> example
+            ko.applyBindings({}, $$('random-gif'));
+
+            // <placekitten> example
+            ko.applyBindings({
+                width: ko.observable(300),
+                height: ko.observable(200),
+                title: ko.observable('kittenz!')
+            }, $$('placekitten'));
+
+
+            // <click-to-edit> example
+            ko.applyBindings({
+                text: ko.observable('click me!!!')
+            }, $$('click-to-edit'));
+
+
+
+            // <see-more> example
+            ko.applyBindings({
+                title: ko.observable('title'),
+                content: ko.observable('this is some more content.... ajwdnajwndjanw jjnawj nawj nkajwn kajw')
+            }, $$('see-more'));
+
+
+
+
+        }())
+    </script>
+
+</body>
+</html>

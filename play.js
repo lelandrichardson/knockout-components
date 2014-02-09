@@ -25,6 +25,9 @@
         ctor: function (rootElement, attributes, data, bindingContext) {
     
         },
+        init: function(){
+
+        },
         update: function () {
     
         }

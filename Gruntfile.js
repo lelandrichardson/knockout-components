@@ -18,7 +18,14 @@ module.exports = function(grunt) {
 
         // CONSTANTS
         // ---------------------------------------------------------------------
-        src_files: ['src/**/*.js'],
+        src_files: [
+            'src/initialize.js',
+            'src/utilities/domData.js',
+            'src/utilities/domTraversal.js',
+            'src/preProcessNode.js',
+            'src/bindingHandlers.js'
+            //'src/exports.js'
+        ],
 
         spec_files: ['test/**/*spec.js'],
 
@@ -37,7 +44,11 @@ module.exports = function(grunt) {
                     ' * Date: <%= grunt.template.today("dd-mm-yyyy") %>\n' +
                     ' */\n'
                 },
-                src: ['<%= src_files %>'],
+                src: [
+                    'src/build-fragments/top.js',
+                    '<%= src_files %>',
+                    'src/build-fragments/bottom.js'
+                ],
                 dest: 'build/ko-components.js'
             }
         },
@@ -75,7 +86,11 @@ module.exports = function(grunt) {
 
         jasmine: {
             dev: {
-                src: ['lib/knockout.min.js','<%= src_files %>'],
+                src: [
+                    'lib/jquery.min.js',
+                    'lib/knockout.min.js',
+                    '<%= src_files %>'
+                ],
                 options: {
                     specs: ['<%= spec_files %>']
                 }
@@ -87,7 +102,7 @@ module.exports = function(grunt) {
         // ---------------------------------------------------------------------
         watch: {
             files: ['<%= src_files %>'],
-            tasks: ['jshint']
+            tasks: ['build','jasmine']
         }
 
     });
@@ -99,11 +114,14 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-jasmine');
 
-    
-    // "npm test" runs these tasks
-    grunt.registerTask('test', ['jshint', 'concat', 'uglify', 'jasmine:dev']);
-    
+    // tasks
+    grunt.registerTask('test', ['jshint', 'jasmine:dev']);
+
+    grunt.registerTask('build', ['concat','uglify'])
+
+
+
     // Default task.
-    grunt.registerTask('default', ['test']);
+    grunt.registerTask('default', ['watch']);
 
 };

@@ -97,7 +97,7 @@ ko_components.getTemplateDomNodes = function(template){
         var tmplNode = $$(template.substring(1));
         if('content' in tmplNode){
             // tmplNode is a <template> tag
-            return tmplNode.content.childNodes; // TODO: i don't think this is done correctly. look into fixing.
+            return tmplNode.content.cloneNode(true).childNodes; // TODO: i don't think this is done correctly. look into fixing.
         } else {
             return tmplNode.cloneNode(true).childNodes;
         }
@@ -108,9 +108,9 @@ ko_components.getTemplateDomNodes = function(template){
 
 ko_components.getDomNodesFromText = function(text){
     var div = document.createElement('div');
-    // TODO: ko.cleanNode is not available publicly. look into replicating.
-    div.innerHTML = text;
-    // TODO: ko.virtualElements.childNodes is not publicly available. look into replicating.
+    ko.utils.setHtml(div,text);
+    //div.innerHTML = text;
+    // NOTE: won't work with virtual elements very well...
     return div.childNodes;
 };
 

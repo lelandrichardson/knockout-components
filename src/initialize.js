@@ -12,7 +12,7 @@ var
     extend = ko.utils.extend;
 
 
-// private constants
 var
+    // private constants
     PRE_TEMPLATE_HANDLER = "__ko_components_template_handler",
     ATTRIBUTE_BINDING_STRING = "attribute_bindings";

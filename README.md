@@ -23,11 +23,31 @@ Inspired from the new [Web Components Spec]() and other polyfill libraries like 
 To define a custom component, one must put a component declaration in the `ko.components` namespace, where `ko.components['widget-name']` corresponsed to a `<widget-name>` HTML element being defined.
 
 
+    ko.components['widget-name'] = {
+    
+        template: '<div>a custom template string or id name of template in document</div>',
+    
+        attributes: [/* an array of attributes to pass into constructor */],
+    
+        defaults: {
+            /* default values for attributes */
+        },
+    
+        ctor: function (attributes, viewModel, bindingContext) {
+    
+            /* construct your widget instance. the template
+             * is bound to the value of `this` 
+             */
+        }
+    };
+
+simple example:
+
     ko.components['placekitten'] = {
     
-        template: '<img data-bind="attr: { src: src }" />',
+        template: '<img data-bind="attr: { src: src, width: width, height: height }" />',
     
-        attributes: ['width', 'height', 'title'],
+        attributes: ['width', 'height'],
     
         defaults: {
             width: 100,
@@ -123,7 +143,7 @@ For example, we can declare a "fancy-name" element as follows:
 
 
     ko.components['fancy-name'] = {
-        template: '<div data-bind="text: value"></span>',
+        template: '<div data-bind="text: fullName"></span>',
         attributes: ['first', 'last'],
         ctor: function (attributes) {
 
@@ -135,6 +155,17 @@ For example, we can declare a "fancy-name" element as follows:
             }, this);
         }
     };
+
+In this case, I would use a `<fancy-name>` component like:
+
+    <input data-bind="value: firstName"/>
+    <input data-bind="value: lastName"/>
+    <fancy-name data-first="firstName" data-last="lastName"></fancy-name>
+
+    <script>
+        ko.applyBindings({ firstName: ko.observable(), lastName: ko.observable() });
+    </script>
+
 
 2. the **`viewModel`** param:
 

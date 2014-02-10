@@ -3,6 +3,9 @@
 <head>
     <title>Knockout Components: Examples</title>
     <link href="../lib/bootstrap.min.css" rel="stylesheet"/>
+    <style type="text/css">
+        tab-pane { visibility: hidden; }
+    </style>
 </head>
 <body>
 
@@ -36,6 +39,19 @@
             <title></title>
         </see-more>
     </div>
+
+
+    <h2>Transclusion Test</h2>
+
+    <div id="transclusion-test">
+        <transclusion-test>
+            <div class="one">transcluded div1</div>
+            <div class="two">transcluded div2</div>
+            <div>transcluded div with all content</div>
+            <div>more content</div>
+        </transclusion-test>
+    </div>
+
 
 
 
@@ -73,6 +89,7 @@
     <script type="text/javascript" src="placekitten.js" ></script>
     <script type="text/javascript" src="click-to-edit.js" ></script>
     <script type="text/javascript" src="see-more.js" ></script>
+    <script type="text/javascript" src="transclusion-test.js" ></script>
 
 
     <script>
@@ -103,6 +120,10 @@
                 title: ko.observable('title'),
                 content: ko.observable('this is some more content.... ajwdnajwndjanw jjnawj nawj nkajwn kajw')
             }, $$('see-more'));
+
+
+            // <see-more> example
+            ko.applyBindings({}, $$('transclusion-test'));
 
 
 

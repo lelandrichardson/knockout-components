@@ -11,14 +11,14 @@ ko.components = {};
 var ko_components = {};
 
 
+// shortcut references
 var
-    // shortcut references
     $$ = function(id){return document.getElementById(id)},
     extend = ko.utils.extend;
 
 
+// private constants
 var
-    // private constants
     /**
      * @constant {string}
      */

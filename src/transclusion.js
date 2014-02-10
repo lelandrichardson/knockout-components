@@ -8,7 +8,7 @@ function getContentNodes(nodeList){
     var res = [],
         idx = nodeList.length,
         found;
-    while(--idx){
+    while(--idx>=0){
         found = getElementsByTagName('content', nodeList[idx]);
         if(found.length){
             res.push.apply(res, found);
@@ -24,14 +24,13 @@ function getContentNodes(nodeList){
  * @param contentNode {HTMLElement} - The content node which will be replaced/removed
  * @param componentNode {HTMLElement} - The
  */
-ko_components.replaceContentNodeWithTranscludedNodes = function(contentNode, componentNode){
-    var select = contentNode.getAttribute("select"),
-        toMove,
+ko_components.replaceContentNodeWithTranscludedNodes = function(select, contentNode, componentNode){
+    var toMove,
         parent = contentNode.parentNode;
 
-    if(select === null || select == "*"){
+    if(select === "*"){
         // transclude everything
-        toMove = [componentNode];
+        toMove = componentNode.childNodes;
     } else if (select[0] == '.') {
         // get by class
         toMove = getElementsByClassName(select.substring(1), componentNode);
@@ -42,7 +41,7 @@ ko_components.replaceContentNodeWithTranscludedNodes = function(contentNode, com
 
     var idx = toMove.length;
 
-    while(--idx){
+    while(--idx>=0){
         parent.insertBefore(toMove[idx], contentNode);
     }
 
@@ -62,8 +61,20 @@ ko_components.performTransclusion = function(component, componentNode, templateN
 
     var length = contentNodes.length, i;
 
+    var transcludeAll;
     for (i = 0; i < length; i++) {
-        ko_components.replaceContentNodeWithTranscludedNodes(contentNodes[i], componentNode);
+        var contentNode = contentNodes[i],
+            select = contentNode.getAttribute("select");
+
+        if (select === null || select === "*"){
+            // this can only happen once, and we need to do it last... so we cache until after loop
+            transcludeAll = contentNode;
+        } else {
+            ko_components.replaceContentNodeWithTranscludedNodes(select, contentNode, componentNode);
+        }
+    }
+    if (transcludeAll){
+        ko_components.replaceContentNodeWithTranscludedNodes("*", transcludeAll, componentNode);
     }
 };
 

@@ -22,6 +22,9 @@ ko_components.preprocessNode = function (node){
         preTemplateNode = preTemplateCommentNode(name),
         parent = node.parentNode;
 
+
+    ko_components.performTransclusion(component, node, tmplNodes);
+
     // store the original binding string
     ko_components.domData.set(
         preTemplateNode,
@@ -36,13 +39,13 @@ ko_components.preprocessNode = function (node){
     parent.insertBefore(preTemplateNode, node);
 
     // tmplNodes.length decreases with each iteration since it is getting removed from list
-    while(tmplNodes.length>0){
+    while(tmplNodes.length > 0){
         parent.insertBefore(tmplNodes[0], node);
     }
 
     parent.replaceChild(postTemplateCommentNode(), node);
 
-    // TODO: TRANSCLUSION - still need to find "content" node and replace with node's children...
+
     // TODO: if tag.replaceWith = 'div', turn node into a div...?
 
     // TODO: check data-bind attribute?

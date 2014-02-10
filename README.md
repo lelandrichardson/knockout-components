@@ -161,7 +161,7 @@ ko.components['fancy-name'] = {
         }, this);
     }
 };
-```js
+```
 
 In this case, I would use a `<fancy-name>` component like:
 
@@ -286,7 +286,7 @@ Let's say I have the following template defined for a custom component `<foo>`:
     <div>
         <div><b>Description:</b></div>
         <content select="*"></content>
-    </div
+    </div>
 </template>
 ```
 

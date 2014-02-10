@@ -22,47 +22,50 @@ Inspired from the new [Web Components Spec](http://www.w3.org/TR/components-intr
 
 To define a custom component, one must put a component declaration in the `ko.components` namespace, where `ko.components['widget-name']` corresponsed to a `<widget-name>` HTML element being defined.
 
+```js
+ko.components['widget-name'] = {
 
-    ko.components['widget-name'] = {
-    
-        template: '<div>a custom template string or id name of template in document</div>',
-    
-        attributes: [/* an array of attributes to pass into constructor */],
-    
-        defaults: {
-            /* default values for attributes */
-        },
-    
-        ctor: function (attributes, viewModel, bindingContext) {
-    
-            /* construct your widget instance. the template
-             * is bound to the value of `this` 
-             */
-        }
-    };
+    template: '<div>a custom template string or id name of template in document</div>',
+
+    attributes: [/* an array of attributes to pass into constructor */],
+
+    defaults: {
+        /* default values for attributes */
+    },
+
+    ctor: function (attributes, viewModel, bindingContext) {
+
+        /* construct your widget instance. the template
+         * is bound to the value of `this` 
+         */
+    }
+};
+```
 
 simple example:
 
-    ko.components['placekitten'] = {
-    
-        template: '<img data-bind="attr: { src: src, width: width, height: height }" />',
-    
-        attributes: ['width', 'height'],
-    
-        defaults: {
-            width: 100,
-            height: 100
-        },
-    
-        ctor: function (attributes, viewModel, bindingContext) {
-    
-            this.src = ko.computed(function(){
-                return 'http://placekitten.com/'
-                    + ko.unwrap(attributes.width) + '/'
-                    + ko.unwrap(attributes.height);
-            });
-        }
-    };
+```js
+ko.components['placekitten'] = {
+
+    template: '<img data-bind="attr: { src: src, width: width, height: height }" />',
+
+    attributes: ['width', 'height'],
+
+    defaults: {
+        width: 100,
+        height: 100
+    },
+
+    ctor: function (attributes, viewModel, bindingContext) {
+
+        this.src = ko.computed(function(){
+            return 'http://placekitten.com/'
+                + ko.unwrap(attributes.width) + '/'
+                + ko.unwrap(attributes.height);
+        });
+    }
+};
+```
 
 ### Component Definition ###
 
@@ -116,21 +119,24 @@ simple example:
  
 ### Component Cunstructor Function ###
 
-    ko.components['my-component'] = {
-        ctor: function (attributes, viewModel, bindingContext) {
-            
-        }
-    };
+```js
+ko.components['my-component'] = {
+    ctor: function (attributes, viewModel, bindingContext) {
+        
+    }
+};
+```
 
 The `ctor` property of the component definition is the widget's constructor function. It is called once every time the widget is created and the value bound to `this` (or the value the function returns) is what the template is bound to.
 
-
-    ko.components['random-number'] = {
-        template: '<span data-bind="text: value"></span>',
-        ctor: function () {
-            this.value = Math.random();
-        }
-    };
+```js
+ko.components['random-number'] = {
+    template: '<span data-bind="text: value"></span>',
+    ctor: function () {
+        this.value = Math.random();
+    }
+};
+```
 
 The constructor function has three parameters passed into it. In order,
 
@@ -141,30 +147,33 @@ This is an object with values specified through HTML attributes on the widget el
 
 For example, we can declare a "fancy-name" element as follows:
 
+```js
+ko.components['fancy-name'] = {
+    template: '<div data-bind="text: fullName"></span>',
+    attributes: ['first', 'last'],
+    ctor: function (attributes) {
 
-    ko.components['fancy-name'] = {
-        template: '<div data-bind="text: fullName"></span>',
-        attributes: ['first', 'last'],
-        ctor: function (attributes) {
+        this.first = attributes.first;
+        this.last = attributes.last;
 
-            this.first = attributes.first;
-            this.last = attributes.last;
-
-            this.fullName = ko.computed(function(){
-                return [ko.unwrap(this.first), ko.unwrap(this.last)].join(' ');
-            }, this);
-        }
-    };
+        this.fullName = ko.computed(function(){
+            return [ko.unwrap(this.first), ko.unwrap(this.last)].join(' ');
+        }, this);
+    }
+};
+```js
 
 In this case, I would use a `<fancy-name>` component like:
 
-    <input data-bind="value: firstName"/>
-    <input data-bind="value: lastName"/>
-    <fancy-name data-first="firstName" data-last="lastName"></fancy-name>
+```html
+<input data-bind="value: firstName"/>
+<input data-bind="value: lastName"/>
+<fancy-name data-first="firstName" data-last="lastName"></fancy-name>
+```
 
-    <script>
-        ko.applyBindings({ firstName: ko.observable(), lastName: ko.observable() });
-    </script>
+```js
+ko.applyBindings({ firstName: ko.observable(), lastName: ko.observable() });
+```
 
 
 2. the **`viewModel`** param:
@@ -179,19 +188,20 @@ This is useful if your component is somehow behaves differently depending on the
 
 The third parameter of the constructor function is the binding context where the tag was declared.
 
-    ko.components['fancy-name'] = {
+```js
+ko.components['fancy-name'] = {
 
-        /* ... */
+    /* ... */
 
-        ctor: function (attributes, viewModel, bindingContext) {
+    ctor: function (attributes, viewModel, bindingContext) {
 
-            if(bindingContext.$data === viewModel) {
-                // this will always be true.
-            }
-            
+        if(bindingContext.$data === viewModel) {
+            // this will always be true.
         }
-    };
-
+        
+    }
+};
+```
 
 
 
@@ -201,7 +211,9 @@ The third parameter of the constructor function is the binding context where the
 
 It is recommended that the following CSS be included at the head of the page when using knockout-components in order to prevent a [Flash of unstyled content](http://en.wikipedia.org/wiki/Flash_of_unstyled_content):
 
-    :unresolved { opacity: 0; }
+```css
+:unresolved { opacity: 0; }
+```
 
 which will hide all custom tag content from rendering until bound by knockout.
 
@@ -266,70 +278,76 @@ For instance:
 
 Let's say I have the following template defined for a custom component `<foo>`:
 
-    <template id="foo_template">
-        <content select="h2"></content>
-        <content select=".title"></content>
-        <hr />
-        <div>
-            <div><b>Description:</b></div>
-            <content select="*"></content>
-        </div
-    </template>
-
-and then in our markup we have a foo widget:
-
-    <foo>
-        <h1 class="title">My Title</h1>
-        <h2>My Subtitle</h2>
-        <div>some cool description</div>
-    </foo>
-
-
-The markup will get transcluded, and after binding will be:
-
-    <h2>My Subtitle</h2>
-    <h1 class="title">My Title</h1>
+```html
+<template id="foo_template">
+    <content select="h2"></content>
+    <content select=".title"></content>
     <hr />
     <div>
         <div><b>Description:</b></div>
-        <div>some cool description</div>
-    </div>
+        <content select="*"></content>
+    </div
+</template>
+```
 
+and then in our markup we have a foo widget:
+
+```html
+<foo>
+    <h1 class="title">My Title</h1>
+    <h2>My Subtitle</h2>
+    <div>some cool description</div>
+</foo>
+```
+
+The markup will get transcluded, and after binding will be:
+
+```html
+<h2>My Subtitle</h2>
+<h1 class="title">My Title</h1>
+<hr />
+<div>
+    <div><b>Description:</b></div>
+    <div>some cool description</div>
+</div>
+```
 
 
 Or perhaps a more practical example:
 
-
-    <template id="modal_template">
-        <div class="modal fade">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-bind="click: close">&times;</button>
-                        <h4 class="modal-title" data-bind="text:title"></h4>
-                    </div>
-                    <div class="modal-body">
-                        <content></content>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-bind="click: close">Close</button>
-                        <button type="button" class="btn btn-primary" data-bind="click: save, text: okText"></button>
-                    </div>
+```html
+<template id="modal_template">
+    <div class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-bind="click: close">&times;</button>
+                    <h4 class="modal-title" data-bind="text:title"></h4>
+                </div>
+                <div class="modal-body">
+                    <content></content>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-bind="click: close">Close</button>
+                    <button type="button" class="btn btn-primary" data-bind="click: save, text: okText"></button>
                 </div>
             </div>
         </div>
-    </template>
+    </div>
+</template>
+```
 
 
 with the markup:
 
-    <modal data-title="'Save Document?'" data-ok-text="'Save Changes'">
-        <h4>Your document has pending changes.</h4>
-        <p>
-            If you leave without saving, some of your work could be lost.
-        </p>
-    </modal>
-
+```html
+<modal data-title="'Save Document?'" data-ok-text="'Save Changes'">
+    <h4>Your document has pending changes.</h4>
+    <p>
+        If you leave without saving, some of your work could be lost.
+    </p>
+</modal>
+```
 
 
 ### Things left to do ###

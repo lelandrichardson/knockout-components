@@ -12,7 +12,7 @@ A components library for Knockout.js (3.0 and above)
 
 knockout-components is a small library that sits on top of [knockout.js](http://knockoutjs.com) and provides a framework to reuse and encapsulate logic in a semantic fashion.
 
-Inspired from the new [Web Components Spec]() and other polyfill libraries like [polymer](), although knockout-components comes packed the power of knockout.js.
+Inspired from the new [Web Components Spec](http://www.w3.org/TR/components-intro/) and other polyfill libraries like [polymer](http://www.polymer-project.org/), although knockout-components comes packed the power of knockout.js.
 
 
     

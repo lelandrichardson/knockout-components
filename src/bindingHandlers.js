@@ -42,5 +42,9 @@ ko_components.preTemplateHandler = {
     }
 };
 
+function toCamel(str){
+    return str.toLowerCase().replace(/-([a-z])/g, function (g) { return g[1].toUpperCase(); });
+}
+
 ko.bindingHandlers[PRE_TEMPLATE_HANDLER] = ko_components.preTemplateHandler;
 ko.virtualElements.allowedBindings[PRE_TEMPLATE_HANDLER] = true;

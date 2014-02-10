@@ -40,11 +40,18 @@ ko_components.replaceContentNodeWithTranscludedNodes = function(select, contentN
     }
 
     var idx = toMove.length;
-
-    while(--idx>=0){
-        parent.insertBefore(toMove[idx], contentNode);
+    if(idx>0){
+        // if there are content nodes we are inserting, we are going to wrap them with a knockout
+        // comment which changes the binding context to the parent scope, so that it is less
+        // confusing to the user what is going on.
+        parent.insertBefore(document.createComment("ko with: $parent"), contentNode);
+        while(--idx>=0){
+            parent.insertBefore(toMove[idx], contentNode);
+        }
+        parent.insertBefore(document.createComment("/ko"), contentNode);
     }
 
+    // remove the content node from the DOM entirely
     parent.removeChild(contentNode);
 };
 

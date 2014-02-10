@@ -47,7 +47,7 @@
         <transclusion-test>
             <div class="one">transcluded div1</div>
             <div class="two">transcluded div2</div>
-            <div>transcluded div with all content</div>
+            <div data-bind="text: text"></div>
             <div>more content</div>
         </transclusion-test>
     </div>
@@ -71,6 +71,34 @@
         </tab-pane>
     </div>
 
+
+
+    <template id="tmpl_autocomplete">
+        <div>
+            <input
+                type="text"
+                class="search-input"
+                data-bind="
+                    offset: menuPosition,
+                    value: query,
+                    valueUpdate: 'afterkeydown',
+                    event: inputEvents" />
+        </div>
+
+        <ul class="results-list unstyled"
+            data-bind="
+                position: menuPosition,
+                visible: isMenuVisible,
+                on: listEvents,
+                event: listElementEvents,
+                foreach: items" style="display:none;">
+
+            <content select="*"></content>
+
+        </ul>
+
+
+    </template>
 
 
 
@@ -122,8 +150,10 @@
             }, $$('see-more'));
 
 
-            // <see-more> example
-            ko.applyBindings({}, $$('transclusion-test'));
+            // <transclusion-test> example
+            ko.applyBindings({
+                text: ko.observable('transcluded dawdawdiv with all content')
+            }, $$('transclusion-test'));
 
 
 

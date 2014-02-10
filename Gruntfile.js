@@ -22,6 +22,7 @@ module.exports = function(grunt) {
             'src/initialize.js',
             'src/utilities/domData.js',
             'src/utilities/domTraversal.js',
+            'src/transclusion.js',
             'src/preProcessNode.js',
             'src/bindingHandlers.js'
             //'src/exports.js'
@@ -65,6 +66,18 @@ module.exports = function(grunt) {
                 }
             }
             
+        },
+        yuidoc: {
+            all: {
+                name: '<%= pkg.name %>',
+                description: '<%= pkg.description %>',
+                version: '<%= pkg.version %>',
+                url: '<%= pkg.homepage %>',
+                options: {
+                    paths: ['src'],
+                    outdir: './documentation/'
+                }
+            }
         },
 
 
@@ -113,11 +126,12 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-jasmine');
+    grunt.loadNpmTasks("grunt-contrib-yuidoc");
 
     // tasks
     grunt.registerTask('test', ['jshint', 'jasmine:dev']);
 
-    grunt.registerTask('build', ['concat','uglify'])
+    grunt.registerTask('build', ['concat','uglify']);
 
 
 

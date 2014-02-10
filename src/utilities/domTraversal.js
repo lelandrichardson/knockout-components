@@ -18,6 +18,12 @@ var getElementsByClassName = (function(document){
     };
 }(document));
 
+/**
+ *
+ * @param tagName
+ * @param context {HTMLElement}
+ * @returns {Array<HTMLElement>}
+ */
 var getElementsByTagName = function(tagName, context){
     return context.getElementsByTagName(tagName);
 };

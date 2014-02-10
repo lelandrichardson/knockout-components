@@ -1,5 +1,9 @@
-
-
+/**
+ * Given an array-like structure of DOM nodes, returns an array of
+ * every <content> node in the list, or any element of the list's subtree.
+ * @param nodeList {Array<HTMLElement>}
+ * @returns {Array}
+ */
 function getContentNodes(nodeList){
     var res = [],
         idx = nodeList.length,
@@ -13,22 +17,17 @@ function getContentNodes(nodeList){
     return res;
 }
 
-ko_components.performTransclusion = function(component, componentNode, templateNodes){
-
-    var contentNodes = getContentNodes(templateNodes);
-
-    var length = contentNodes.length, i;
-
-    for (i = 0; i < length; i++) {
-        ko_components.replaceContentNodeWithTranscludedNodes(contentNodes[i], componentNode);
-    }
-};
-
-
+/**
+ * This is where the actual transclusino takes place. Given a contentNode
+ * @method replaceContentNodeWithTranscludedNodes
+ * @for ko_components
+ * @param contentNode {HTMLElement} - The content node which will be replaced/removed
+ * @param componentNode {HTMLElement} - The
+ */
 ko_components.replaceContentNodeWithTranscludedNodes = function(contentNode, componentNode){
     var select = contentNode.getAttribute("select"),
         toMove,
-        parent = componentNode.parentNode;
+        parent = contentNode.parentNode;
 
     if(select === null || select == "*"){
         // transclude everything
@@ -49,3 +48,22 @@ ko_components.replaceContentNodeWithTranscludedNodes = function(contentNode, com
 
     parent.removeChild(contentNode);
 };
+
+
+/**
+ *
+ * @param component {Component}
+ * @param componentNode {HTMLElement}
+ * @param templateNodes {Array<HTMLElement>}
+ */
+ko_components.performTransclusion = function(component, componentNode, templateNodes){
+
+    var contentNodes = getContentNodes(templateNodes);
+
+    var length = contentNodes.length, i;
+
+    for (i = 0; i < length; i++) {
+        ko_components.replaceContentNodeWithTranscludedNodes(contentNodes[i], componentNode);
+    }
+};
+

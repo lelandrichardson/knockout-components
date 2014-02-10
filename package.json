@@ -1,31 +1,31 @@
 {
-    "name": "knockout-components",
-    "version": "0.0.1",
-    "description": "A components library for Knockout.js (3.0+)",
-    "repository": {
-        "type": "git",
-        "url": "git@github.com:lelandrichardson/knockout-components"
-    },
-    "keywords": [
-        "knockout",
-        "javascript"
-    ],
-    "author": "Leland Richardson",
-    "license": "MIT",
-    "bugs": {
-        "url": "https://github.com/lelandrichardson/knockout-components/issues"
-    },
-    "dependencies": {
-        "grunt": "~0.4.1"
-    },
-    "devDependencies": {
-        "grunt-contrib-yuidoc": "~0.5.0",
-        "grunt-contrib-jshint": "*",
-        "grunt-contrib-concat": "*",
-        "grunt-contrib-nodeunit": "*",
-        "grunt-contrib-watch": "*",
-        "grunt-contrib-uglify": "*",
-        "grunt-contrib-qunit": "*",
-        "grunt-contrib-concat": "*"
-    }
+  "name": "knockout-components",
+  "version": "0.0.1",
+  "description": "A components library for Knockout.js (3.0+)",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:lelandrichardson/knockout-components"
+  },
+  "keywords": [
+    "knockout",
+    "javascript"
+  ],
+  "author": "Leland Richardson",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lelandrichardson/knockout-components/issues"
+  },
+  "dependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-yuidoc": "~0.5.0"
+  },
+  "devDependencies": {
+    "grunt-contrib-yuidoc": "~0.5.0",
+    "grunt-contrib-jshint": "*",
+    "grunt-contrib-concat": "*",
+    "grunt-contrib-nodeunit": "*",
+    "grunt-contrib-watch": "*",
+    "grunt-contrib-uglify": "*",
+    "grunt-contrib-qunit": "*"
+  }
 }
